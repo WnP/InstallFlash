@@ -55,7 +55,11 @@ func main() {
 		p.install()
 	}
 
-	fmt.Printf("\nIf you're using grsecurity kernel do:\n\n    $ paxctl -c -m  /usr/lib/firefox-<version>/plugin-container\n\n")
+	fmt.Println(`
+	If you're using grsecurity kernel do:
+
+		$ paxctl -c -m  /usr/lib/firefox-<version>/plugin-container
+		`)
 }
 
 type rule struct {
@@ -175,7 +179,7 @@ func (p *pkg) download() io.ReadCloser {
 	return rpipe
 }
 
-// extract xz archive using xz executable
+// extract xz archive using xz executable TODO: remove xz dependency
 func xzReader(r io.Reader) io.ReadCloser {
 	var stderr = bytes.NewBuffer([]byte{})
 	rpipe, wpipe := io.Pipe() // don't use temporay file, pipe direct to other process
@@ -218,7 +222,7 @@ func matchRe(fileName string, reString string) bool {
 	return false
 }
 
-// TODO: Clean installed files
+// Clean installed files
 func clean() {
 	var err error
 	for _, v := range installed {
