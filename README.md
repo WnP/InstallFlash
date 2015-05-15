@@ -9,7 +9,7 @@ It simply download flashplugin and glibc latests versions from archlinux officia
 
 that's all
 
-## Dependecies
+## Dependencies
 
 - [go](https://golang.org/)
 - [xz](http://tukaani.org/xz/)
