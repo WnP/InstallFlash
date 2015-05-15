@@ -87,7 +87,7 @@ func (p *pkg) install() {
 
 	p.installFiles(xz) // install from archive
 
-	log.Printf("Installed %s required component(s) from %s", p.Name, p.Url) // informe user
+	log.Printf("Installed %s required component(s) from %s", p.Name, p.Url) // inform user
 }
 
 // install files from tar archive with the provided rules
