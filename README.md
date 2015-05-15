@@ -1,5 +1,3 @@
-# WARNING: Alpha stage, not functionnal
-
 # Alpine Linux FlashPlugin installer
 
 ## Description

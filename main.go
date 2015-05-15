@@ -6,7 +6,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -105,18 +104,18 @@ func (p *pkg) installFiles(r io.ReadCloser) {
 		for _, r := range p.Rules {
 			if hdr.Name == r.Src || matchRe(hdr.Name, r.Src) {
 
-				// get content
-				var content []byte
-				_, err = tr.Read(content)
-				check(err)
-
 				// get file name
 				splits := strings.Split(hdr.Name, "/")
 				fname := splits[len(splits)-1]
 				fname = r.DestDir + fname
 
+				// open file
+				file, err := os.Create(fname)
+				check(err)
+				defer file.Close()
+
 				// install file
-				err = ioutil.WriteFile(fname, content, r.FileMode)
+				_, err = io.Copy(file, tr)
 				check(err)
 
 				// record filename for removing it in case of crash
