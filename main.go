@@ -79,8 +79,7 @@ func (p *pkg) install() {
 
 	log.Printf("installing %s required component(s)... Please wait\n", p.Name)
 
-	err := p.getUrl() // get latest url
-	check(err)
+	p.getUrl() // get latest url
 
 	file := p.download() // download package archive
 
@@ -130,7 +129,7 @@ func (p *pkg) installFiles(r io.ReadCloser) {
 }
 
 // Get package's latest version url from repository
-func (p *pkg) getUrl() error {
+func (p *pkg) getUrl() {
 	var re = regexp.MustCompile(fmt.Sprintf("^%s-.+-x86_64\\.pkg\\.tar\\.xz$", p.Name))
 
 	// get repository root tree
@@ -152,7 +151,6 @@ func (p *pkg) getUrl() error {
 		}
 		return true
 	})
-	return nil
 }
 
 // Dowload package archive from repository
