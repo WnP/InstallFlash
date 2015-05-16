@@ -45,6 +45,8 @@ func main() {
 		p.install()
 	}
 
+	createFakeGlibc() // thanks to dalias on #alpine-linux
+
 	fmt.Println(`
 	If you're using grsecurity kernel do:
 
@@ -76,8 +78,6 @@ func (p *pkg) install() {
 	xz := xzReader(file) // extract archive
 
 	p.installFiles(xz) // install from archive
-
-	createFakeGlibc() // thanks to dalias on #alpine-linux
 
 	log.Printf("Installed %s required component(s) from %s", p.Name, p.Url) // inform user
 }
