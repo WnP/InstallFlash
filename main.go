@@ -13,6 +13,7 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
+	"sync"
 
 	"github.com/PuerkitoBio/goquery" // parsing xml made easy
 	xz "github.com/remyoudompheng/go-liblzma"
@@ -38,15 +39,27 @@ var (
 )
 
 func main() {
+	var wg sync.WaitGroup
 	var pkgs []pkg
+
 	err := json.Unmarshal(config, &pkgs)
 	check(err, fmt.Errorf("Can't load configuration: "))
 
 	for _, p := range pkgs {
-		p.install()
+		wg.Add(1)
+		go func(p pkg) {
+			defer wg.Done()
+			p.install()
+		}(p)
 	}
 
-	createFakeGlibc() // thanks to dalias on #alpine-linux
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		createFakeGlibc() // thanks to dalias on #alpine-linux
+	}()
+
+	wg.Wait()
 
 	fmt.Println(`
 	If you're using grsecurity kernel do:
@@ -196,13 +209,18 @@ func xzReader(r io.Reader) io.ReadCloser {
 func createFakeGlibc() {
 	var stderr = bytes.NewBuffer([]byte{})
 
+	fname := "/usr/local/lib/ld-linux-x86-64.so.2"
+
 	cmd := exec.Command(
 		"gcc", "-fPIC", "-shared", "-nostartfiles", "-O3", "-x", "c", "/dev/null",
-		"-o", "/usr/local/lib/ld-linux-x86-64.so.2")
+		"-o")
 	cmd.Stderr = stderr
 
 	err := cmd.Run()
 	check(err, fmt.Errorf("gcc failed: %s", stderr.String()))
+
+	// record filename for removing it in case of crash
+	installed = append(installed, fname)
 }
 
 // check error, only the first one is checked other are here for comunication purpose
