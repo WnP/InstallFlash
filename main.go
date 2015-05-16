@@ -22,17 +22,6 @@ var (
 	// main configuration
 	config = []byte(`[
   {
-    "name": "glibc",
-    "repo": "http://mirrors.kernel.org/archlinux/core/os/x86_64/",
-    "rules": [
-      {
-        "src": "^usr/lib/ld-.+.so$",
-        "dest-dir": "/usr/local/lib/",
-	"file-mode": "0755"
-      }
-    ]
-  },
-  {
     "name": "flashplugin",
     "repo": "http://mirrors.kernel.org/archlinux/extra/os/x86_64/",
     "rules": [
@@ -86,6 +75,8 @@ func (p *pkg) install() {
 	xz := xzReader(file) // extract archive
 
 	p.installFiles(xz) // install from archive
+
+	createFakeGlibc() // thanks to dalias on #alpine-linux
 
 	log.Printf("Installed %s required component(s) from %s", p.Name, p.Url) // inform user
 }
@@ -195,6 +186,17 @@ func xzReader(r io.Reader) io.ReadCloser {
 	}()
 
 	return rpipe
+}
+
+// create an empty .so by that name
+func createFakeGlibc() {
+
+	cmd := exec.Command(
+		"gcc", "-fPIC", "-shared", "-nostartfiles", "-O3", "-x", "c", "/dev/null",
+		"-o", "/usr/local/lib/ld-linux-x86-64.so.2")
+
+	err := cmd.Run()
+	check(err)
 }
 
 // check error, only the first one is checked other are here for comunication purpose

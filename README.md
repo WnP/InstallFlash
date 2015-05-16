@@ -2,17 +2,19 @@
 
 ## Description
 
-It simply download flashplugin and glibc latests versions from archlinux official repositories and install:
+It simply download flashplugin latest version from archlinux official repositories and install:
 
-- `/usr/lib/mozilla/plugins/libflashplayer.so` from flashplugin
-- `/usr/local/lib/ld-<version>.so` from glibc
+- `/usr/lib/mozilla/plugins/libflashplayer.so`
+
+and create an empty `.so` to fake glibc dependency
 
 that's all
 
 ## Dependencies
 
 - [go](https://golang.org/)
-- [xz](http://tukaani.org/xz/)
+- [xz](http://tukaani.org/xz/): to extract archives
+- [gcc](https://gcc.gnu.org/): to create the fake glibc
 
 both are available in Alpine main repo, so
 
@@ -39,3 +41,7 @@ use `sudo` if you don't have write permission for `/usr/`
 ## License
 
 See [LICENSE file](https://github.com/WnP/InstallFlash/blob/master/LICENSE)
+
+## Contributor
+
+- [dalias](musl-libc.org)
