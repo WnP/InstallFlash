@@ -200,6 +200,8 @@ func xzReader(r io.Reader) io.ReadCloser {
 
 		_, err = io.Copy(wpipe, dec)
 		check(err)
+
+		wpipe.CloseWithError(err)
 	}()
 
 	return rpipe
