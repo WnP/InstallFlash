@@ -2,7 +2,7 @@
 
 ## Description
 
-It simply download flashplugin latest version from archlinux official repositories and install:
+It simply download `x86_64` flashplugin latest version from archlinux official repositories and install:
 
 - `/usr/lib/mozilla/plugins/libflashplayer.so`
 
