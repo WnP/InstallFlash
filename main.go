@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/exec"
 	"regexp"
+	"strconv"
 	"strings"
 
 	"github.com/PuerkitoBio/goquery" // parse xml made easy
@@ -28,7 +29,7 @@ var (
       {
         "src": "usr/lib/mozilla/plugins/libflashplayer.so",
         "dest-dir": "/usr/lib/mozilla/plugins/",
-	"file-mode": "0755"
+        "file-mode": "0755"
       }
     ]
   }
@@ -52,9 +53,9 @@ func main() {
 }
 
 type rule struct {
-	Src      string      `json:"src"`      // path to file in archive to be installed
-	DestDir  string      `json:"dest-dir"` // destination directory
-	FileMode os.FileMode `json:"file-mode` // file's mode and permission bits
+	Src      string `json:"src"`       // path to file in archive to be installed
+	DestDir  string `json:"dest-dir"`  // destination directory
+	FileMode string `json:"file-mode"` // file's mode and permission bits
 }
 
 type pkg struct {
@@ -110,6 +111,12 @@ func (p *pkg) installFiles(r io.ReadCloser) {
 
 				// install file
 				_, err = io.Copy(file, tr)
+				check(err)
+
+				// set file permissions
+				fmi, err := strconv.ParseUint(r.FileMode, 0, 32)
+				check(err)
+				err = os.Chmod(fname, os.FileMode(fmi))
 				check(err)
 
 				// record filename for removing it in case of crash
