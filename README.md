@@ -58,6 +58,20 @@ use `sudo` if you don't have write permission for `/usr/`
 
 See [LICENSE file](https://github.com/WnP/InstallFlash/blob/master/LICENSE)
 
+## Development
+
+Pull requests are welcome
+
+- fork
+- make some changes
+- commit you changes
+- create a pull request
+
+### TODO list
+
+- Implement tests suite
+- Replace `xz` by one functionnal [golang lib](http://godoc.org/?q=xz)
+
 ## Contributors
 
 - [dalias](http://www.musl-libc.org/)
