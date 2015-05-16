@@ -14,6 +14,8 @@ that's all
 
 ## Dependencies
 
+If you plan to install it from sources:
+
 - [go](https://golang.org/)
 - [xz](http://tukaani.org/xz/): to extract archives
 - [gcc](https://gcc.gnu.org/): to create the fake glibc
@@ -28,9 +30,21 @@ and you're done
 
 ## Install
 
+### From source
+
 ```
 $ go get github.com/WnP/InstallFlash
 ```
+
+### Usin Alpine Package Manager
+
+`InstallFlash` is actualy available from testing repository, so:
+
+```
+$ apk add installflash
+```
+
+will install it with all dependencies, thanks to [Carlo Landmeter](https://github.com/clandmeter)
 
 ## Usage
 
@@ -44,6 +58,7 @@ use `sudo` if you don't have write permission for `/usr/`
 
 See [LICENSE file](https://github.com/WnP/InstallFlash/blob/master/LICENSE)
 
-## Contributor
+## Contributors
 
 - [dalias](http://www.musl-libc.org/)
+- [Carlo Landmeter](https://github.com/clandmeter)
