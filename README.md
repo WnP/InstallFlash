@@ -44,4 +44,4 @@ See [LICENSE file](https://github.com/WnP/InstallFlash/blob/master/LICENSE)
 
 ## Contributor
 
-- [dalias](musl-libc.org)
+- [dalias](http://www.musl-libc.org/)
