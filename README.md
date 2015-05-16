@@ -16,10 +16,10 @@ that's all
 - [xz](http://tukaani.org/xz/): to extract archives
 - [gcc](https://gcc.gnu.org/): to create the fake glibc
 
-both are available in Alpine main repo, so
+all are available in Alpine main repo, so
 
 ```
-$ apk add go xz
+$ apk add go xz gcc
 ```
 
 and you're done
