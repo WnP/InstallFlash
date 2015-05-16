@@ -144,7 +144,7 @@ func (p *pkg) getUrl() {
 			// don't match if more than one found
 			if res := re.FindAllString(href, -1); len(res) == 1 {
 				p.Url = p.Url + res[0]
-				return true // break each loop
+				return false // break each loop
 			}
 		}
 		return true
