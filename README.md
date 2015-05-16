@@ -17,13 +17,13 @@ that's all
 If you plan to install it from sources:
 
 - [go](https://golang.org/)
-- [xz](http://tukaani.org/xz/): to extract archives
+- [xz-dev](http://tukaani.org/xz/): to extract archives
 - [gcc](https://gcc.gnu.org/): to create the fake glibc
 
 all are available in Alpine main repo, so
 
 ```
-$ apk add go xz gcc
+$ apk add go xz-dev gcc
 ```
 
 and you're done
@@ -44,7 +44,7 @@ $ go get github.com/WnP/InstallFlash
 $ apk add installflash
 ```
 
-will install it with all dependencies, thanks to [Carlo Landmeter](https://github.com/clandmeter)
+will install it with no dependencies, thanks to [Carlo Landmeter](https://github.com/clandmeter)
 
 ## Usage
 
@@ -70,7 +70,6 @@ Pull requests are welcome
 ### TODO list
 
 - Implement tests suite
-- Replace `xz` by one functionnal [golang lib](http://godoc.org/?q=xz)
 
 ## Contributors
 

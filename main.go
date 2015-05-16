@@ -14,7 +14,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/PuerkitoBio/goquery" // parse xml made easy
+	"github.com/PuerkitoBio/goquery" // parsing xml made easy
+	xz "github.com/remyoudompheng/go-liblzma"
 )
 
 var (
@@ -177,19 +178,15 @@ func (p *pkg) download() io.ReadCloser {
 
 // extract xz archive using xz executable TODO: remove xz dependency
 func xzReader(r io.Reader) io.ReadCloser {
-	var stderr = bytes.NewBuffer([]byte{})
+
 	rpipe, wpipe := io.Pipe() // don't use temporay file, pipe direct to other process
 
-	cmd := exec.Command("xz", "-dc")
-	cmd.Stdin = r
-	cmd.Stdout = wpipe
-	cmd.Stderr = stderr
-
 	go func() {
-		err := cmd.Run()
-		check(err, fmt.Errorf("extraction failed: %s", stderr.String()))
+		dec, err := xz.NewReader(r)
+		check(err)
 
-		wpipe.CloseWithError(err)
+		_, err = io.Copy(wpipe, dec)
+		check(err)
 	}()
 
 	return rpipe
