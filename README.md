@@ -36,7 +36,7 @@ and you're done
 $ go get github.com/WnP/InstallFlash
 ```
 
-### Usin Alpine Package Manager
+### Using Alpine Package Manager
 
 `InstallFlash` is actualy available from testing repository, so:
 
