@@ -197,13 +197,15 @@ func xzReader(r io.Reader) io.ReadCloser {
 
 // create an empty .so by that name
 func createFakeGlibc() {
+	var stderr = bytes.NewBuffer([]byte{})
 
 	cmd := exec.Command(
 		"gcc", "-fPIC", "-shared", "-nostartfiles", "-O3", "-x", "c", "/dev/null",
 		"-o", "/usr/local/lib/ld-linux-x86-64.so.2")
+	cmd.Stderr = stderr
 
 	err := cmd.Run()
-	check(err)
+	check(err, fmt.Errorf("gcc failed: %s", stderr.String()))
 }
 
 // check error, only the first one is checked other are here for comunication purpose
