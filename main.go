@@ -189,7 +189,7 @@ func (p *pkg) download() io.ReadCloser {
 	return rpipe
 }
 
-// extract xz archive using xz executable TODO: remove xz dependency
+// extract xz archive using xz executable
 func xzReader(r io.Reader) io.ReadCloser {
 
 	rpipe, wpipe := io.Pipe() // don't use temporay file, pipe direct to other process
