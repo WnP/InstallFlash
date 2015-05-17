@@ -215,7 +215,7 @@ func createFakeGlibc() {
 
 	cmd := exec.Command(
 		"gcc", "-fPIC", "-shared", "-nostartfiles", "-O3", "-x", "c", "/dev/null",
-		"-o")
+		"-o", fname)
 	cmd.Stderr = stderr
 
 	err := cmd.Run()
