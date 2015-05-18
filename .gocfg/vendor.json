@@ -1,0 +1,21 @@
+{
+  "GitRepos": {
+    "vendor/src/github.com/PuerkitoBio/goquery": {
+      "URI": "https://github.com/PuerkitoBio/goquery",
+      "Ref": "60ec77b0032de8548a0d67f76154458850264a99"
+    },
+    "vendor/src/github.com/andybalholm/cascadia": {
+      "URI": "https://github.com/andybalholm/cascadia",
+      "Ref": "54abbbf07a45a3ef346ebe903e0715d9a3c19352"
+    },
+    "vendor/src/github.com/remyoudompheng/go-liblzma": {
+      "URI": "https://github.com/remyoudompheng/go-liblzma",
+      "Ref": "e592d11004fad5273ee038602d775382a6dffeec"
+    },
+    "vendor/src/golang.org/x/net": {
+      "URI": "https://go.googlesource.com/net",
+      "Ref": "bb64f4dc73d4ab97978d5e1cb34515dcc570361b"
+    }
+  },
+  "MercurialRepos": {}
+}
