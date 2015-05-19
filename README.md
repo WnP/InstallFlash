@@ -19,22 +19,32 @@ If you plan to install it from sources:
 - [go](https://golang.org/)
 - [xz-dev](http://tukaani.org/xz/): to extract archives
 - [gcc](https://gcc.gnu.org/): to create the fake glibc
+- [wgo](https://github.com/skelterjohn/wgo): to manage dependencies versions
 
-all are available in Alpine main repo, so
+all, except `wgo`, are available in Alpine main repo, so
 
 ```
 $ apk add go xz-dev gcc
 ```
 
-and you're done
+to install `wgo`:
+
+```
+$ go get github.com/skelterjohn/wgo
+```
 
 ## Install
 
 ### From source
 
 ```
-$ go get github.com/WnP/InstallFlash
+$ git clone https://github.com/WnP/InstallFlash
+$ cd InstallFlash
+$ wgo restore
+$ wgo install InstallFlash
 ```
+
+`InstallFlash` binary is in `./bin` folder
 
 ### Using Alpine Package Manager
 
