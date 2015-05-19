@@ -6,10 +6,6 @@ It simply download `x86_64` flashplugin latest version from archlinux official r
 
 - `/usr/lib/mozilla/plugins/libflashplayer.so`
 
-and create an empty `.so` to fake glibc dependency:
-
-- `/usr/local/lib/ld-linux-x86-64.so.2`
-
 that's all
 
 ## Dependencies
