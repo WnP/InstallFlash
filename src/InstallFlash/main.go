@@ -2,14 +2,12 @@ package main
 
 import (
 	"archive/tar"
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"os/exec"
 	"regexp"
 	"strconv"
 	"strings"
@@ -53,19 +51,7 @@ func main() {
 		}(p)
 	}
 
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		createFakeGlibc() // thanks to dalias on #alpine-linux
-	}()
-
 	wg.Wait()
-
-	fmt.Println(`
-	If you're using grsecurity kernel do:
-
-		$ paxctl -c -m  /usr/lib/firefox-<version>/plugin-container
-		`)
 }
 
 type rule struct {
@@ -205,24 +191,6 @@ func xzReader(r io.Reader) io.ReadCloser {
 	}()
 
 	return rpipe
-}
-
-// create an empty .so by that name
-func createFakeGlibc() {
-	var stderr = bytes.NewBuffer([]byte{})
-
-	fname := "/usr/local/lib/ld-linux-x86-64.so.2"
-
-	cmd := exec.Command(
-		"gcc", "-fPIC", "-shared", "-nostartfiles", "-O3", "-x", "c", "/dev/null",
-		"-o", fname)
-	cmd.Stderr = stderr
-
-	err := cmd.Run()
-	check(err, fmt.Errorf("gcc failed: %s", stderr.String()))
-
-	// record filename for removing it in case of crash
-	installed = append(installed, fname)
 }
 
 // check error, only the first one is checked other are here for comunication purpose

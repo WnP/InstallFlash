@@ -18,13 +18,12 @@ If you plan to install it from sources:
 
 - [go](https://golang.org/)
 - [xz-dev](http://tukaani.org/xz/): to extract archives
-- [gcc](https://gcc.gnu.org/): to create the fake glibc
 - [wgo](https://github.com/skelterjohn/wgo): to manage dependencies versions
 
 all, except `wgo`, are available in Alpine main repo, so
 
 ```
-$ apk add go xz-dev gcc
+$ apk add go xz-dev
 ```
 
 to install `wgo`:
@@ -37,6 +36,8 @@ $ go get github.com/skelterjohn/wgo
 
 ### From source
 
+- get the source and compile them:
+
 ```
 $ git clone https://github.com/WnP/InstallFlash
 $ cd InstallFlash
@@ -45,6 +46,18 @@ $ wgo install InstallFlash
 ```
 
 `InstallFlash` binary is in `./bin` folder
+
+- create a fake glibc lib to satisfy flash dependency:
+
+```
+$ gcc -fPIC -shared -nostartfiles -O3 -x c /dev/null -o /usr/local/lib/ld-linux-x86-64.so.2
+```
+
+- set paxmarks for firefox `plugin-container`:
+
+```
+$ paxctl -c -m  /usr/lib/firefox-<version>/plugin-container
+```
 
 ### Using Alpine Package Manager
 
